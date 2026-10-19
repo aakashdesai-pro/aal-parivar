@@ -454,62 +454,6 @@ async function downloadPoster() {
   }
 }
 
-/**
- * Share directly to WhatsApp with text + file if supported
- */
-async function shareToWhatsApp() {
-  const canvas = document.getElementById('posterCanvas');
-  const deitiesHeader = (state.deityNames && state.deityNames.length) ? state.deityNames.join(' | ') : 'આલ પરિવાર મઢ';
-  const messageText = `🛕 *${state.footerLine1 || 'આલ પરિવાર મઢ - ભેચડા'}*\n${deitiesHeader}\n\n🎉 *${state.eventName}*\n👤 *દાતા:* ${state.donorName || 'દાતા'}\n💰 *દાન રકમ:* ₹${state.donationAmount}/-\n📅 *તારીખ:* ${state.donationDate}\n\n🙏 *${state.footerLine2 || ''}*\n${state.footerLine3 || ''}`;
-
-  // Check if Web Share API with files is supported (Modern Android / iOS / Chrome)
-  if (navigator.canShare && canvas.toBlob) {
-    try {
-      const blob = await renderer.toBlob('image/png', 1.0);
-      const file = new File([blob], 'aal_parivar_madh_poster.png', { type: 'image/png' });
-
-      if (navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: 'આલ પરિવાર મઢ - દાન પોસ્ટર',
-          text: messageText
-        });
-        showToast('વોટ્સએપ / સોશિયલ મીડિયા પર શેર થયું! 📲');
-        return;
-      }
-    } catch (err) {
-      if (err.name !== 'AbortError') {
-        console.warn('Web Share API error:', err);
-      }
-    }
-  }
-
-  // Fallback: Open WhatsApp with message text
-  const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(messageText)}`;
-  window.open(waUrl, '_blank');
-  showToast('વોટ્સએપ ખુલી રહ્યું છે... (સાથે પોસ્ટર ડાઉનલોડ કરી અટેચ કરો) 📲');
-}
-
-/**
- * Copy image to Clipboard
- */
-async function copyImageToClipboard() {
-  if (!navigator.clipboard || !window.ClipboardItem) {
-    showToast('આ બ્રાઉઝરમાં ક્લિપબોર્ડ કોપી સપોર્ટેડ નથી, કૃપા કરી ડાઉનલોડ કરો');
-    return;
-  }
-
-  try {
-    const blob = await renderer.toBlob('image/png');
-    await navigator.clipboard.write([
-      new ClipboardItem({ 'image/png': blob })
-    ]);
-    showToast('પોસ્ટર ક્લિપબોર્ડ પર કોપી થયું! હવે WhatsApp પર Ctrl+V થી પેસ્ટ કરો 📋');
-  } catch (err) {
-    console.error('Clipboard copy failed:', err);
-    showToast('ક્લિપબોર્ડ કોપીમાં સમસ્યા આવી, ડાઉનલોડ બટનનો ઉપયોગ કરો');
-  }
-}
 
 /**
  * Toast Notification System

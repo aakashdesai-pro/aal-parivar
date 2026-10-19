@@ -492,18 +492,6 @@ body {
   background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
 }
 
-.btn-whatsapp {
-  background: #25d366;
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
-}
-
-.btn-whatsapp:hover {
-  background: #20ba59;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.4);
-}
-
 .btn-secondary {
   background: #f1f5f9;
   color: #334155;
@@ -513,12 +501,6 @@ body {
 .btn-secondary:hover {
   background: #e2e8f0;
   color: #1e293b;
-}
-
-.btn-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.65rem;
 }
 
 /* Toast Notifications */

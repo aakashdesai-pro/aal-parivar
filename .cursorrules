@@ -1,0 +1,9 @@
+# Cursor Rules - આલ પરિવાર
+
+- Respond to user queries in Hinglish.
+- Keep all UI text and posters in Gujarati script.
+- Never use or mention "નેસ મેનેજર" anywhere in the app or code. The brand is strictly "આલ પરિવાર".
+- The project is internal, non-commercial, and for Aal Parivar Madh (Bhechada). No marketing buzzwords or promo badges.
+- Strictly adhere to user request scope — do not add unasked features or placeholder cards.
+- Pure client-side static web application (HTML5, CSS, Vanilla JS, no backend/frameworks).
+- Maintain sync between config.json and config.js (needed for offline file:/// support).

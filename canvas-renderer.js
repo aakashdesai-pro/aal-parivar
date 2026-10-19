@@ -254,17 +254,6 @@ class PosterRenderer {
     ctx.stroke();
     ctx.restore();
 
-    // 7. Village Heritage Details
-    ctx.save();
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#06424e';
-    ctx.font = '800 44px "Hind Vadodara", "Noto Sans Gujarati", sans-serif';
-    ctx.shadowColor = 'rgba(255, 255, 255, 0.6)';
-    ctx.shadowBlur = 8;
-    ctx.fillText(`— ❖ ${data.villageLine || 'ગામ : ભેચડા'} ❖ —`, W / 2, 666);
-    ctx.restore();
-
     // 8. Event Badge (Crowned on top of the teal arch)
     const badgeW = 470;
     const badgeH = 74;

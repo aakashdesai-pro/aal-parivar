@@ -460,7 +460,7 @@ async function downloadPoster() {
 async function shareToWhatsApp() {
   const canvas = document.getElementById('posterCanvas');
   const deitiesHeader = (state.deityNames && state.deityNames.length) ? state.deityNames.join(' | ') : 'આલ પરિવાર મઢ';
-  const messageText = `🛕 *${state.footerLine1 || 'આલ પરિવાર મઢ - ભેચડા'}*\n${deitiesHeader}\n${state.villageLine}\n\n🎉 *${state.eventName}*\n👤 *દાતા:* ${state.donorName || 'દાતા'}\n💰 *દાન રકમ:* ₹${state.donationAmount}/-\n📅 *તારીખ:* ${state.donationDate}\n\n🙏 *${state.footerLine2}*\n${state.footerLine3}`;
+  const messageText = `🛕 *${state.footerLine1 || 'આલ પરિવાર મઢ - ભેચડા'}*\n${deitiesHeader}\n\n🎉 *${state.eventName}*\n👤 *દાતા:* ${state.donorName || 'દાતા'}\n💰 *દાન રકમ:* ₹${state.donationAmount}/-\n📅 *તારીખ:* ${state.donationDate}\n\n🙏 *${state.footerLine2 || ''}*\n${state.footerLine3 || ''}`;
 
   // Check if Web Share API with files is supported (Modern Android / iOS / Chrome)
   if (navigator.canShare && canvas.toBlob) {

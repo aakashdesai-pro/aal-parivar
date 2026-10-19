@@ -5,10 +5,10 @@
 // Global State
 const state = {
   deityNames: [
-    '॥ જય લીંબોજ માં ॥',
-    '॥ જય મોમાઈ માં ॥',
-    '॥ જય મેલડી માં ॥',
-    '॥ જય ગોગા મહારાજ ॥'
+    'જય લીંબોજ માં',
+    'જય મોમાઈ માં',
+    'જય મેલડી માં',
+    'જય ગોગા મહારાજ'
   ],
   templeName: '',
   tagline: '“શ્રદ્ધા, સેવા અને સંગઠન”',
@@ -359,25 +359,24 @@ function toggleAccordion(id) {
 }
 
 /**
- * Load temple static configuration from config.js or config.json
+ * Load temple static configuration from config.json or config.js
  */
 async function loadTempleConfig() {
-  // 1. Load from config.js (runs natively on file:/// protocol)
-  if (typeof window !== 'undefined' && window.TEMPLE_CONFIG) {
-    applyTempleConfig(window.TEMPLE_CONFIG);
-  }
-
-  // 2. If running on a web server (http / https), attempt to fetch config.json
+  // 1. Try to fetch fresh config.json with cache-busting (so edits reflect immediately on http/localhost/server)
   try {
-    if (window.location.protocol.startsWith('http')) {
-      const res = await fetch('config.json');
-      if (res.ok) {
-        const json = await res.json();
-        applyTempleConfig(json);
-      }
+    const res = await fetch(`config.json?v=${Date.now()}`, { cache: 'no-store' });
+    if (res.ok) {
+      const json = await res.json();
+      applyTempleConfig(json);
+      return;
     }
   } catch (e) {
-    // Expected on local file:/// protocol
+    // Expected fallback when opened via direct file:/// protocol
+  }
+
+  // 2. Fallback to config.js (runs natively on file:/// protocol without server)
+  if (typeof window !== 'undefined' && window.TEMPLE_CONFIG) {
+    applyTempleConfig(window.TEMPLE_CONFIG);
   }
 }
 

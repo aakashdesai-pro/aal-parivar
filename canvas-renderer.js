@@ -171,10 +171,10 @@ class PosterRenderer {
     // 5. Top Deities Header - 4 Sacred Names across the top
     ctx.save();
     const deityList = (data.deityNames && data.deityNames.length) ? data.deityNames : [
-      '॥ જય લીંબોજ માં ॥',
-      '॥ જય મોમાઈ માં ॥',
-      '॥ જય મેલડી માં ॥',
-      '॥ જય ગોગા મહારાજ ॥'
+      'જય લીંબોજ માં',
+      'જય મોમાઈ માં',
+      'જય મેલડી માં',
+      'જય ગોગા મહારાજ'
     ];
 
     ctx.textAlign = 'center';

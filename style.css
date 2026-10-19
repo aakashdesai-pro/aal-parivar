@@ -53,7 +53,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 0.75rem;
 }
 
@@ -908,15 +908,146 @@ body {
   cursor: not-allowed;
 }
 
+/* =========================================================
+   Mobile Responsiveness Optimizations
+   ========================================================= */
+
 @media (max-width: 768px) {
-  .dashboard-hero {
-    padding: 1.75rem 1.25rem;
+  /* Sleek, Compact Single-Row Header */
+  .app-header {
+    padding: 0.55rem 0.85rem;
   }
-  .hero-title {
-    font-size: 1.7rem;
+
+  .header-container {
+    flex-wrap: nowrap;
+    gap: 0.45rem;
   }
+
+  .brand-wrapper {
+    gap: 0.45rem;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .brand-icon {
+    font-size: 1.45rem;
+  }
+
+  .brand-title {
+    font-size: 1.12rem;
+    white-space: nowrap;
+  }
+
+  .header-nav-actions {
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .btn-nav-back {
+    padding: 0.32rem 0.65rem;
+    font-size: 0.8rem;
+    gap: 0.25rem;
+  }
+
+  .header-badge {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.76rem;
+    gap: 0.25rem;
+  }
+
+  /* Dashboard View on Mobile */
+  .dashboard-wrapper {
+    padding: 1.15rem 0.85rem 3.5rem;
+  }
+
   .tools-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tool-card {
+    padding: 1.25rem;
+  }
+
+  /* Poster View Layout on Mobile */
+  .main-wrapper {
+    margin: 0.75rem auto;
+    padding: 0 0.65rem;
+    gap: 1rem;
+  }
+
+  .form-card {
+    padding: 1.15rem;
+    margin-bottom: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.85rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .preview-card {
+    padding: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  /* Mobile Floating Action Bar */
+  .mobile-floating-bar {
+    padding: 0.55rem 0.85rem;
+    padding-bottom: max(0.55rem, env(safe-area-inset-bottom));
+    gap: 0.5rem;
+  }
+
+  .mobile-bar-btn {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
+
+  body {
+    padding-bottom: 4.5rem;
   }
 }
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 0.45rem 0.65rem;
+  }
+
+  .brand-icon {
+    font-size: 1.35rem;
+  }
+
+  .brand-title {
+    font-size: 1.02rem;
+  }
+
+  .btn-nav-back {
+    padding: 0.28rem 0.5rem;
+    font-size: 0.74rem;
+  }
+
+  .header-badge {
+    padding: 0.2rem 0.45rem;
+    font-size: 0.72rem;
+  }
+
+  .form-card {
+    padding: 1rem;
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-adjust-box {
+    grid-template-columns: 1fr;
+  }
+
+  .amount-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 

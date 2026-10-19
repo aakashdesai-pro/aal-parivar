@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>આલ પરિવાર - ભેચડા</title>
+  
+  <!-- Google Fonts for crisp Gujarati typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@400;500;600;700;800&family=Noto+Sans+Gujarati:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top App Navigation Bar -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper" onclick="navigateView('dashboard')" style="cursor: pointer;" title="હોમ પેજ પર જાઓ">
+        <span class="brand-icon">🛕</span>
+        <div>
+          <h1 class="brand-title">આલ પરિવાર</h1>
+        </div>
+      </div>
+      <div class="header-nav-actions">
+        <button type="button" id="backToDashboardBtn" class="btn-nav-back" onclick="navigateView('dashboard')" style="display: none;">
+          <span>←</span> બધા ટૂલ્સ (All Tools)
+        </button>
+        <div class="header-badge">
+          <span>✨</span> ભેચડા
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- View 1: Main Screen - All Tools Hub -->
+  <div id="dashboardView" class="dashboard-wrapper">
+    <!-- Tools Section Header -->
+    <div class="dashboard-section-header">
+      <h3 class="section-heading-title">
+        <span>🛠️</span> સાધનો (Tools)
+      </h3>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="tools-grid">
+
+      <!-- Tool 1: Donation Poster Generator -->
+      <div class="tool-card active-card" onclick="navigateView('poster-maker')" style="cursor: pointer;">
+        <div class="tool-card-header">
+          <div class="tool-icon-wrapper">
+            <span>🎨</span>
+          </div>
+        </div>
+        <div class="tool-card-body">
+          <h4 class="tool-title">દાન પોસ્ટર</h4>
+          <p class="tool-desc">
+            દાતાની વિગત અને ફોટો ઉમેરીને પોસ્ટર બનાવો.
+          </p>
+        </div>
+        <div class="tool-card-footer">
+          <button type="button" class="btn-launch-tool">
+            <span>ખોલો</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- View 2: Tool 1 - Donation Poster Maker -->
+  <main class="main-wrapper" id="posterToolView" style="display: none;">
+
+    <!-- Left Column: Interactive Form Controls -->
+    <div class="form-column">
+
+      <!-- 1. દાતાની વિગતો (Donor Details) -->
+      <section class="form-card">
+        <h2 class="card-title">
+          <span>👤</span> ૧. દાતાની વિગત (Donor Information)
+        </h2>
+
+        <!-- Donor Name -->
+        <div class="form-group">
+          <label class="form-label" for="donorName">
+            <span>દાતાનું નામ (Donor Name)</span>
+            <span class="label-sub">ગુજરાતી અથવા અંગ્રેજીમાં લખો</span>
+          </label>
+          <input type="text" id="donorName" class="form-input" placeholder="દાતાનું નામ લખો (દા.ત. આલ આકાશ)">
+          
+          <!-- Quick Prefix / Suffix Insertion Pills -->
+          <div class="quick-pills">
+            <span class="quick-pill" onclick="appendNamePrefix('શ્રી ')">+ શ્રી</span>
+            <span class="quick-pill" onclick="appendNamePrefix('ભાઈ')">+ ભાઈ</span>
+            <span class="quick-pill" onclick="appendNamePrefix('બેન')">+ બેન</span>
+            <span class="quick-pill" onclick="appendNamePrefix('સ્વ. ')">+ સ્વ. (સ્વર્ગસ્થ)</span>
+            <span class="quick-pill" onclick="appendNamePrefix(' સપરિવાર')">+ સપરિવાર</span>
+            <span class="quick-pill" onclick="appendNamePrefix('કુમાર')">+ કુમાર</span>
+          </div>
+        </div>
+
+        <!-- Donor Photo Upload -->
+        <div class="form-group">
+          <label class="form-label">
+            <span>દાતાનો ફોટો (Donor Photo)</span>
+            <span class="label-sub">મોબાઇલ કે કમ્પ્યુટરમાંથી પસંદ કરો</span>
+          </label>
+
+          <div class="photo-uploader" id="dropZone" onclick="document.getElementById('donorPhotoInput').click()">
+            <div class="uploader-content">
+              <span class="uploader-icon">📷</span>
+              <p class="uploader-text">અહીં ક્લિક કરી ફોટો અપલોડ કરો</p>
+              <p class="uploader-subtext">અથવા ફોટો Drag & Drop કરો (JPG, PNG, WebP)</p>
+            </div>
+            <input type="file" id="donorPhotoInput" class="file-input" accept="image/*">
+          </div>
+
+          <!-- Photo Adjustment Tools -->
+          <div class="photo-controls">
+            <div class="control-item">
+              <label class="control-label">
+                <span>ઝૂમ (Zoom)</span>
+                <span id="zoomVal">1.0x</span>
+              </label>
+              <input type="range" id="zoomSlider" class="range-slider" min="0.8" max="2.5" step="0.05" value="1.0">
+            </div>
+
+            <div class="control-item">
+              <label class="control-label">
+                <span>ઉપર / નીચે (Pan Y)</span>
+                <span id="panYVal">0%</span>
+              </label>
+              <input type="range" id="panYSlider" class="range-slider" min="-100" max="100" step="2" value="0">
+            </div>
+
+            <div class="control-item">
+              <label class="control-label">
+                <span>ડાબે / જમણે (Pan X)</span>
+                <span id="panXVal">0%</span>
+              </label>
+              <input type="range" id="panXSlider" class="range-slider" min="-100" max="100" step="2" value="0">
+            </div>
+
+            <div class="control-item" style="justify-content: flex-end; gap: 0.4rem; flex-direction: row; align-items: flex-end;">
+              <button type="button" class="btn btn-secondary" id="removePhotoBtn" style="padding: 0.5rem; font-size: 0.82rem; display: none;" onclick="removeDonorPhoto()">
+                ❌ ફોટો હટાવો
+              </button>
+              <button type="button" class="btn btn-secondary" style="padding: 0.5rem; font-size: 0.82rem;" onclick="resetPhotoControls()">
+                🔄 ફોટો રીસેટ
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. પ્રસંગ / નિમિત્ત (Event / Occasion) -->
+      <section class="form-card">
+        <h2 class="card-title">
+          <span>🎉</span> ૨. પ્રસંગ / નિમિત્ત (Event Occasion)
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label">
+            <span>પ્રસંગ પસંદ કરો</span>
+            <span class="label-sub">બટન પર ક્લિક કરો અથવા કસ્ટમ લખો</span>
+          </label>
+
+          <div class="event-grid">
+            <button type="button" class="event-card-btn active" data-event="જન્મદિવસ નિમિત્તે">
+              <span>🎂</span> જન્મદિવસ નિમિત્તે
+            </button>
+            <button type="button" class="event-card-btn" data-event="ગૃહ પ્રવેશ નિમિત્તે">
+              <span>🏠</span> ગૃહ પ્રવેશ
+            </button>
+            <button type="button" class="event-card-btn" data-event="વાસ્તુ પૂજન નિમિત્તે">
+              <span>🪔</span> વાસ્તુ પૂજન
+            </button>
+            <button type="button" class="event-card-btn" data-event="વ્યવસાય શુભારંભ નિમિત્તે">
+              <span>💼</span> વ્યવસાય શુભારંભ
+            </button>
+            <button type="button" class="event-card-btn" data-event="નવા વાહન નિમિત્તે">
+              <span>🚗</span> નવા વાહન નિમિત્તે
+            </button>
+            <button type="button" class="event-card-btn" data-event="નોકરી સફળતા નિમિત્તે">
+              <span>🎯</span> નોકરી સફળતા
+            </button>
+            <button type="button" class="event-card-btn" data-event="શુભ પ્રસંગ નિમિત્તે">
+              <span>🌺</span> શુભ પ્રસંગ નિમિત્તે
+            </button>
+            <button type="button" class="event-card-btn" data-event="નવરાત્રી મહોત્સવ">
+              <span>🚩</span> નવરાત્રી મહોત્સવ
+            </button>
+            <button type="button" class="event-card-btn" data-event="પુણ્યતિથિ નિમિત્તે">
+              <span>🕊️</span> પુણ્યતિથિ નિમિત્તે
+            </button>
+            <button type="button" class="event-card-btn" data-event="custom">
+              <span>✍️</span> અન્ય (કસ્ટમ)
+            </button>
+          </div>
+
+          <!-- Custom Event Input Field -->
+          <input type="text" id="customEventInput" class="form-input" placeholder="પોતાનો પ્રસંગ લખો (દા.ત. નૂતન ગૃહ પ્રવેશ નિમિત્તે)" value="જન્મદિવસ નિમિત્તે">
+        </div>
+      </section>
+
+      <!-- 3. દાનની રકમ અને તારીખ (Donation Amount & Date) -->
+      <section class="form-card">
+        <h2 class="card-title">
+          <span>💰</span> ૩. દાનની રકમ અને તારીખ (Donation Details)
+        </h2>
+
+        <div class="form-group">
+          <label class="form-label" for="donationAmount">
+            <span>દાન કરેલી રકમ (Donation Amount)</span>
+            <span class="label-sub">રૂપિયામાં (₹)</span>
+          </label>
+          <input type="text" id="donationAmount" class="form-input" placeholder="દા.ત. 501" value="501">
+
+          <!-- Quick Amount Chips -->
+          <div class="amount-grid">
+            <button type="button" class="amount-btn" onclick="setAmount('101')">₹101</button>
+            <button type="button" class="amount-btn" onclick="setAmount('251')">₹251</button>
+            <button type="button" class="amount-btn active" onclick="setAmount('501')">₹501</button>
+            <button type="button" class="amount-btn" onclick="setAmount('1100')">₹1,100</button>
+            <button type="button" class="amount-btn" onclick="setAmount('2100')">₹2,100</button>
+            <button type="button" class="amount-btn" onclick="setAmount('5100')">₹5,100</button>
+            <button type="button" class="amount-btn" onclick="setAmount('11000')">₹11,000</button>
+            <button type="button" class="amount-btn" onclick="setAmount('21000')">₹21,000</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="donationDate">
+            <span>દાન આપ્યાની તારીખ (Date)</span>
+            <button type="button" class="quick-pill" style="border-color: #f59e0b;" onclick="setTodayDate()">
+              📅 આજની તારીખ (Today)
+            </button>
+          </label>
+          <input type="text" id="donationDate" class="form-input" placeholder="DD-MM-YYYY" value="02-10-2026">
+        </div>
+      </section>
+
+      <!-- End of Form Cards -->
+    </div>
+
+    <!-- Right Column: Live Poster Preview & Download Actions -->
+    <div class="preview-column">
+      <div class="preview-sticky">
+
+        <div class="preview-card">
+          <div class="preview-header">
+            <h3 class="preview-title">
+              <span>🖼️</span> લાઈવ પોસ્ટર પ્રિવ્યુ (Live Preview)
+            </h3>
+            <span class="preview-status">
+              <span class="pulse-dot"></span> તૈયાર છે
+            </span>
+          </div>
+
+          <!-- Canvas Frame -->
+          <div class="canvas-mockup">
+            <canvas id="posterCanvas" width="1080" height="1760"></canvas>
+          </div>
+
+          <!-- Export & Share Buttons -->
+          <div class="action-buttons">
+            <!-- Download Poster -->
+            <button type="button" class="btn btn-primary" id="downloadBtn" onclick="downloadPoster()">
+              <span>📥</span> પોસ્ટર ડાઉનલોડ કરો
+            </button>
+
+            <!-- Share to WhatsApp -->
+            <button type="button" class="btn btn-whatsapp" id="whatsappBtn" onclick="shareToWhatsApp()">
+              <span>📲</span> વોટ્સએપ પર શેર કરો
+            </button>
+
+            <!-- Copy Image and Reset -->
+            <div class="btn-row">
+              <button type="button" class="btn btn-secondary" onclick="copyImageToClipboard()">
+                <span>📋</span> કોપી કરો (Copy)
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                <span>✨</span> નવું બનાવો (New)
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Mobile Floating Quick Action Bar -->
+  <div class="mobile-floating-bar" id="mobileBar">
+    <button type="button" class="mobile-bar-btn" onclick="scrollToPreview()">
+      <span>🖼️</span> લાઈવ પ્રિવ્યુ જુઓ
+    </button>
+    <button type="button" class="mobile-bar-btn primary" onclick="downloadPoster()">
+      <span>📥</span> ડાઉનલોડ કરો
+    </button>
+  </div>
+
+  <!-- Confetti Canvas for Celebration -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="assets.js"></script>
+  <script src="canvas-renderer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
